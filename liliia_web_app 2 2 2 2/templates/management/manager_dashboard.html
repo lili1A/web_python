@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Manager Dashboard</h1>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+
+        <h2>Projects</h2>
+        <a href="{% url 'mng_create_project' %}" class="btn">Create New Project</a>
+        <ul>
+            {% for project in projects %}
+                <li>
+                    <span>{{ project.title }} - {{ project.status }}</span>
+                    <div class="actions">
+                        <a href="{% url 'mng_edit_project' %}" class="btn">Edit</a>
+                        <a href="{% url 'mng_delete_project' %}" class="btn" style="background: #DC3545;">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Tasks</h2>
+        <a href="{% url 'mng_create_task' %}" class="btn">Create New Task</a>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <span>{{ task.title }} ({{ task.priority }}) - {{ task.status }}</span>
+                    <div class="actions">
+                        <a href="{% url 'mng_edit_task' %}" class="btn">Edit</a>
+                        <a href="{% url 'mng_delete_task' %}" class="btn" style="background: #DC3545;">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

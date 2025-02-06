@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .danger {
+            background: #DC3545;
+        }
+        .danger:hover {
+            background: #b52b3a;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+
+        <h2>Projects</h2>
+        <a href="{% url 'create_project' %}" class="btn">Create New Project</a>
+        <ul>
+            {% for project in projects %}
+                <li>
+                    <span>{{ project.title }} - {{ project.status }}</span>
+                    <div class="actions">
+                        <a href="{% url 'edit_project' %}" class="btn">Edit</a>
+                        <a href="{% url 'delete_project' %}" class="btn danger">Delete</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No projects available.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Tasks</h2>
+        <a href="{% url 'create_task' %}" class="btn">Create New Task</a>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <span>{{ task.title }} ({{ task.priority }}) - {{ task.status }}</span>
+                    <div class="actions">
+                        <a href="{% url 'edit_task' %}" class="btn">Edit</a>
+                        <a href="{% url 'delete_task' %}" class="btn danger">Delete</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>No tasks available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
